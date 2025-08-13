@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import DetailAnalysis from '@/components/pages/detail/analysis';
@@ -62,16 +63,17 @@ export default function Detail() {
           .catch(e => alert(e.message));
     } 
     else if (downloadData instanceof ArrayBuffer || downloadData instanceof Uint8Array) {
-        const file = new Blob([downloadData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const a = document.createElement('a');
-        const blobUrl = window.URL.createObjectURL(file);
-        a.href = blobUrl;
-        a.download = downloadData.orig_name ?? 'output.xlsx';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(blobUrl);
-    } 
+      const binaryData = downloadData as ArrayBuffer | Uint8Array;
+      const file = new Blob([binaryData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const a = document.createElement('a');
+      const blobUrl = window.URL.createObjectURL(file);
+      a.href = blobUrl;
+      a.download = (downloadData as any).orig_name ?? 'output.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(blobUrl);
+    }
 }
 
   return (
