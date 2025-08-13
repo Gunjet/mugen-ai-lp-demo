@@ -62,13 +62,26 @@ export default function Detail() {
           })
           .catch(e => alert(e.message));
     } 
-    else if (downloadData instanceof ArrayBuffer || downloadData instanceof Uint8Array) {
-      const binaryData = downloadData as ArrayBuffer | Uint8Array;
-      const file = new Blob([binaryData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      const a = document.createElement('a');
+    else if (
+      downloadData instanceof ArrayBuffer ||
+      downloadData instanceof Uint8Array
+    ) {
+      const origName =
+        typeof (downloadData as any).orig_name === "string" && (downloadData as any).orig_name
+          ? (downloadData as any).orig_name
+          : "output.xlsx";
+
+      const binary =
+        downloadData instanceof Uint8Array ? downloadData.buffer : downloadData;
+    
+      const file = new Blob([new Uint8Array(binary)], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      });
+    
+      const a = document.createElement("a");
       const blobUrl = window.URL.createObjectURL(file);
       a.href = blobUrl;
-      a.download = (downloadData as any).orig_name ?? 'output.xlsx';
+      a.download = origName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
