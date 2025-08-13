@@ -130,7 +130,6 @@ const dummyScoreDict = {
   }
 };
 
-
 const dummyCommonDict = {
   ownUrl: 'https://www.dentsudigital.co.jp/',
   urlText: [
