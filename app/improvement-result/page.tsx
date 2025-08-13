@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import AnalysisTable from '@/components/pages/improvement-result/analysis-table';
@@ -8,6 +9,7 @@ import Item3Table from '@/components/pages/improvement-result/item3-table';
 import SummaryTable from '@/components/pages/improvement-result/summary-table';
 import { Bread } from '@/components/parts/bread';
 import { Button } from '@/components/ui/button';
+import { getExcel } from '@/services/gradio';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +26,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { useResultStore } from '@/store/result';
 import {
   ArrowDown,
   ArrowDownUp,
@@ -33,8 +36,132 @@ import {
   EyeOff,
 } from 'lucide-react';
 
-import { JSX, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { HiQuestionMarkCircle } from 'react-icons/hi';
+import { useInputStore } from '@/store/input';
+import { useUserStore } from '@/store/user';
+import { useGlobalStore } from '@/store/global';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
+function handleDownloadDummyExcel() {
+  const flatScore = flattenData(dummyScoreDict);
+  const flatCommon = flattenData(dummyCommonDict);
+  const flatSummary = flattenData(dummySummaryData);
+  const flatSwot = flattenData(dummySwotData75);
+
+  const data = [{
+    ...flatScore,
+    ...flatCommon,
+    ...flatSummary,
+    ...flatSwot,
+  }];
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'LP改善案');
+  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([excelBuffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  });
+  saveAs(blob, 'ダミー改善案.xlsx');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function flattenData(data: { contents_ocr?: string; content_theme?: any; contents_theme2csv?: string; contents_top_theme?: string; fv_ocr?: string; fv_theme?: any; fv_theme2csv?: string; fv_top_theme?: string; image?: string; url?: string; ownUrl?: string; urlText?: string[]; competitor_urls?: string[]; own_url?: string; purpose?: string; urls_text?: string[]; total_analysis?: any; strengths?: any; weaknesses?: any; opportunities?: any; threats?: any; }) {
+  return {
+    ...data,
+    content_theme: (data.content_theme || []).join(','),
+    fv_theme: (data.fv_theme || []).join(','),
+    strengths: data.strengths
+      ? Object.entries(data.strengths)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(', ')
+      : '',
+    weaknesses: data.weaknesses
+      ? Object.entries(data.weaknesses)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(', ')
+      : '',
+    opportunities: data.opportunities
+      ? Object.entries(data.opportunities)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(', ')
+      : '',
+    threats: data.threats
+      ? Object.entries(data.threats)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(', ')
+      : '',
+    total_analysis:
+      typeof data.total_analysis === 'object'
+        ? Object.entries(data.total_analysis)
+            .map(([k, v]) => `${k}: ${v}`)
+            .join('\n')
+        : data.total_analysis || '',
+  };
+}
+
+const dummyScoreDict = {
+  contents_ocr: 'このコンテンツはAIによって抽出されました。',
+  content_theme: ['デザイン', '価格', 'ユーザビリティ'],
+  contents_theme2csv: 'デザイン,価格,ユーザビリティ',
+  contents_top_theme: 'ユーザビリティ',
+  fv_ocr: 'ファーストビューに強いキャッチコピーあり',
+  fv_theme: ['キャッチコピー', 'シンプルデザイン'],
+  fv_theme2csv: 'キャッチコピー,シンプルデザイン',
+  fv_top_theme: 'キャッチコピー',
+  image: 'https://via.placeholder.com/600x400.png?text=Dummy+LP+Image',
+  url: 'https://www.dentsudigital.co.jp/',
+};
+
+const dummyCommonDict = {
+  ownUrl: 'https://www.dentsudigital.co.jp/',
+  urlText: [
+    'https://www.dentsu.co.jp/',
+    'https://dentsu-ho.com/',
+    'https://www.dentsusoken.com/',
+  ],
+  competitor_urls: [
+    'https://www.dentsu.co.jp/',
+    'https://dentsu-ho.com/',
+    'https://www.dentsusoken.com/',
+  ],
+  own_url: 'https://www.dentsudigital.co.jp/',
+  purpose: '企業サイトの新規顧客獲得のため',
+  urls_text: [
+    'https://www.dentsu.co.jp/',
+    'https://dentsu-ho.com/',
+    'https://www.dentsusoken.com/',
+  ],
+};
+
+const dummySummaryData = {
+  total_analysis: {
+    competitors_advantage: '競合サイトは最新情報の更新頻度が高いです。',
+    own_company_advantage_and_advice:
+      '自社サイトは直感的なナビゲーションが強み。更なる強化のためFAQページの拡充を推奨します。',
+    自社改善点: 'CTAボタンの色彩を見直すとよりCV率向上が見込めます。',
+    自社相対位置: '業界では中堅レベルですが今後の成長余地あり。',
+    自社長所: '高いブランド認知度と安心感。',
+  },
+};
+
+const dummySwotData75 = {
+  strengths: {
+    ブランド力: '業界大手の信頼感',
+    デザイン性: '洗練されたビジュアル',
+  },
+  weaknesses: {
+    更新頻度: '情報更新がやや遅い',
+    レスポンシブ: 'モバイル対応が不十分',
+  },
+  opportunities: {
+    市場拡大: '新規ターゲット層への訴求',
+    SNS活用: 'Instagramでの拡散',
+  },
+  threats: { 競合増加: '同業他社の台頭', コスト: '広告費の高騰' },
+};
 
 const tabs = ['A案', 'B案', 'C案', 'D案', 'E案', 'F案', 'G案', 'H案', 'I案'];
 interface Items {
@@ -47,6 +174,62 @@ interface Items {
 }
 
 export default function ImprovementProposal() {
+  const { setScoreDict, setCommonDict, setSummaryData, setSwotData75 } =
+    useResultStore();
+  useEffect(() => {
+    setScoreDict(dummyScoreDict);
+    setCommonDict(dummyCommonDict);
+    setSummaryData(dummySummaryData);
+    setSwotData75(dummySwotData75);
+  }, [setScoreDict, setCommonDict, setSummaryData, setSwotData75]);
+
+  const { ownUrl, competitionUrls: localCompetitionUrls } = useInputStore();
+  const { scoreDict, commonDict, summaryData, swotData75 } = useResultStore();
+  const { user } = useUserStore();
+  const { dummyMode } = useGlobalStore();
+
+  const handleDownload = async () => {
+    if (dummyMode) {
+      if (!commonDict || !scoreDict || !summaryData || !swotData75) {
+        alert('分析が完了していません。');
+        return;
+      }
+      try {
+        const excelResult = await getExcel(
+          {
+            ownUrl,
+            urlText: localCompetitionUrls,
+            commonDict,
+            scoreDict,
+            summary: summaryData,
+            swot: swotData75,
+          },
+          user?.user?.email || '',
+        );
+
+        const data = (excelResult as { file: string }[])[0];
+        const base64 = data.file.split(',')[1];
+        const byteCharacters = atob(base64);
+        const byteNumbers = Array.from(byteCharacters, (c) => c.charCodeAt(0));
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute('download', '改善案.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        alert('ダウンロードに失敗しました');
+      }
+      handleDownloadDummyExcel();
+      return;
+    }
+  };
+
   const [tab, setTab] = useState('A案');
   const [displayItems, setDisplayItems] = useState<Items[]>([
     {
@@ -102,7 +285,7 @@ export default function ImprovementProposal() {
         return items;
       }
 
-      return prevItems; // Return the current state if swap is not possible
+      return prevItems;
     });
   };
 
@@ -116,13 +299,16 @@ export default function ImprovementProposal() {
             <Button className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full border-[1px] border-[#CCCCCC] bg-white px-6 text-[12px] font-semibold text-[#212121] shadow-none hover:bg-[#EEEEEE] hover:text-[#212121]">
               レギュレーションチェック
             </Button>
-            <Button className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full border-[1px] border-[#CCCCCC] bg-[#CCCCCC] px-6 text-[12px] font-semibold shadow-none hover:border-[#CCCCCC] hover:bg-[#CCCCCC] ">
+            <Button className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full border-[1px] border-[#CCCCCC] bg-[#CCCCCC] px-6 text-[12px] font-semibold shadow-none hover:border-[#CCCCCC] hover:bg-[#CCCCCC]">
               レギュレーションチェック
             </Button>
           </div>
 
           <div className="flex flex-col gap-2">
-            <Button className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full bg-[#212121] pr-[5px] pl-[24px] text-[12px] font-semibold text-white shadow-none hover:bg-[#212121E5]">
+            <Button
+              onClick={handleDownloadDummyExcel}
+              className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full bg-[#212121] pr-[5px] pl-[24px] text-[12px] font-semibold text-white shadow-none hover:bg-[#212121E5]"
+            >
               改善案をダウンロード
               <DownloadIcon className="h-5 w-5" />
             </Button>
