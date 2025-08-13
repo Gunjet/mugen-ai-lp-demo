@@ -43,9 +43,10 @@ import { useUserStore } from '@/store/user';
 import { useGlobalStore } from '@/store/global';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { SummaryData } from '@/types/api';
 
 function handleDownloadDummyExcel() {
-  const flatScore = flattenData(dummyScoreDict);
+  const flatScore = flattenData(dummyScoreDict["dummy-url"]);
   const flatCommon = flattenData(dummyCommonDict);
   const flatSummary = flattenData(dummySummaryData);
   const flatSwot = flattenData(dummySwotData75);
@@ -103,16 +104,30 @@ function flattenData(data: { contents_ocr?: string; content_theme?: any; content
 }
 
 const dummyScoreDict = {
-  contents_ocr: 'このコンテンツはAIによって抽出されました。',
-  content_theme: ['デザイン', '価格', 'ユーザビリティ'],
-  contents_theme2csv: 'デザイン,価格,ユーザビリティ',
-  contents_top_theme: 'ユーザビリティ',
-  fv_ocr: 'ファーストビューに強いキャッチコピーあり',
-  fv_theme: ['キャッチコピー', 'シンプルデザイン'],
-  fv_theme2csv: 'キャッチコピー,シンプルデザイン',
-  fv_top_theme: 'キャッチコピー',
-  image: 'https://via.placeholder.com/600x400.png?text=Dummy+LP+Image',
-  url: 'https://www.dentsudigital.co.jp/',
+  "dummy-url": {
+    contents_ocr: 'このコンテンツはAIによって抽出されました。',
+    content_theme: ['デザイン', '価格', 'ユーザビリティ'],
+    contents_theme2csv: 'デザイン,価格,ユーザビリティ',
+    contents_top_theme: 'ユーザビリティ',
+    fv_ocr: 'ファーストビューに強いキャッチコピーあり',
+    fv_theme: ['キャッチコピー', 'シンプルデザイン'],
+    fv_theme2csv: 'キャッチコピー,シンプルデザイン',
+    fv_top_theme: 'キャッチコピー',
+    image: 'https://via.placeholder.com/600x400.png?text=Dummy+LP+Image',
+    image_full: 'https://via.placeholder.com/600x400.png?text=Dummy+LP+Image+Full',
+    ocr: 'OCR文字列',
+    result: [
+      {
+        advice: 'アドバイス1',
+        analysis: '分析1',
+        category: 'カテゴリー1',
+        question: '質問1',
+        score: 80,
+      },
+    ],
+    title: 'ダミーLPタイトル',
+    url: 'https://www.dentsudigital.co.jp/',
+  }
 };
 
 const dummyCommonDict = {
@@ -179,7 +194,7 @@ export default function ImprovementProposal() {
   useEffect(() => {
     setScoreDict(dummyScoreDict);
     setCommonDict(dummyCommonDict);
-    setSummaryData(dummySummaryData);
+    setSummaryData(dummySummaryData as unknown as SummaryData);
     setSwotData75(dummySwotData75);
   }, [setScoreDict, setCommonDict, setSummaryData, setSwotData75]);
 
