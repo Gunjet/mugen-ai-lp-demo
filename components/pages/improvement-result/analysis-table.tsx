@@ -69,7 +69,7 @@ export default function AnalysisTable() {
               <p className="text-lg font-semibold">Opportunity</p>
               <p className="text-lg font-semibold">機会</p>
               <div className="flex justify-center">
-              <ul className="flex flex-col items-center space-y-1 text-[11px] font-medium max-w-[165.13px]">
+              <ul className="flex flex-col items-center text-left space-y-1 text-[11px] font-medium max-w-[165.13px]">
                 <li className="mb-[2px] flex items-start text-[11px] font-medium">
                   <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
                   <span className="bg-[#212121]"></span>
@@ -135,7 +135,7 @@ export default function AnalysisTable() {
               <p className="text-lg font-semibold">Threat</p>
               <p className="text-lg font-semibold">脅威</p>
               <div className="flex justify-center">
-              <ul className="flex flex-col items-center space-y-1 text-[11px] font-medium max-w-[165.13px]">
+              <ul className="flex flex-col items-center text-left space-y-1 text-[11px] font-medium max-w-[165.13px]">
                 <li className="mb-[2px] flex items-start text-[11px] font-medium">
                   <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
                   <span className="bg-[#212121]"></span>
