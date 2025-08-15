@@ -58,7 +58,7 @@ export default function AnalysisTable() {
         <TableBody>
           <TableRow className="w-full">
             <TableCell
-              className="text-foreground self-center border-r border-[#ccc] bg-[#CDE7F5] align-middle text-[14px] font-bold py-[8px] px-[16px]"
+              className="text-foreground self-center text-center border-r border-[#ccc] bg-[#CDE7F5] align-middle text-[14px] font-bold py-[8px] px-[16px]"
               rowSpan={2}
               colSpan={1}>
               外部要因
