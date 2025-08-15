@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-export default function Item1Table() {
+export default function Item2Table() {
   return (
     <div className="w-full rounded-xl bg-white">
       <h2 className="mb-2 border-b border-[#ccc] px-8 pt-6 pb-4 text-base font-bold">
