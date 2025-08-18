@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  if (req.nextUrl.pathname.startsWith('/improvement-result')) {
+  if (req.nextUrl.pathname.startsWith('/')) {
     const basicAuth = req.headers.get('authorization');
     const USER = 'DDAM';
     const PASS = 'V7b$kR!q2FYp#dEz';
@@ -23,5 +23,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/improvement-result/:path*'],
+  matcher: ['/:path*'],
 };
