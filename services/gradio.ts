@@ -1,14 +1,14 @@
-'use server';
+"use server";
 
-import { Client } from '@gradio/client';
+import { Client } from "@gradio/client";
 
 const TOKEN = process.env.GRADIO_TOKEN;
 
 export async function getGradioClient(user_email: string | null) {
-  return await Client.connect(process.env.DEV_REPOSITORY || '', {
-    hf_token: TOKEN?.startsWith('hf_') ? (TOKEN as `hf_${string}`) : 'hf_',
+  return await Client.connect(process.env.DEV_REPOSITORY || "", {
+    hf_token: TOKEN?.startsWith("hf_") ? (TOKEN as `hf_${string}`) : "hf_",
     headers: {
-      user_email: user_email || '',
+      user_email: user_email || "",
     },
   });
 }
@@ -30,18 +30,18 @@ export async function getCheckUrl(
   // https://www.dentsu-crx.co.jp/
   const client = await getGradioClient(user_email);
   try {
-    const result = await client.predict('/check_url', {
+    const result = await client.predict("/check_url", {
       own_url: userData.ownUrl,
-      url_text: userData.urlText.join(','),
+      url_text: userData.urlText.join(","),
       own_image: null,
-      url_image64_text: '',
+      url_image64_text: "",
       own_image_text: userData.ownImage,
     });
     return result.data;
   } catch {
     return {
-      status: 'error',
-      message: '競合URLを3つ以上入れてください',
+      status: "error",
+      message: "競合URLを3つ以上入れてください",
     };
   }
 }
@@ -55,9 +55,9 @@ export async function getScore(
   user_email: string | null,
 ) {
   const client = await getGradioClient(user_email);
-  const result = await client.predict('/get_score', {
+  const result = await client.predict("/get_score", {
     own_url: userData.ownUrl,
-    url_text: userData.urlText.join(','),
+    url_text: userData.urlText.join(","),
     temp_image: userData.tempImages,
   });
   return result.data;
@@ -71,7 +71,7 @@ export async function getVisScore(
   user_email: string | null,
 ) {
   const client = await getGradioClient(user_email);
-  const result = await client.predict('/vis_score', {
+  const result = await client.predict("/vis_score", {
     commonDict: userData.commonDict,
     scoreDict: userData.scoreDict,
   });
@@ -89,8 +89,8 @@ export async function getSummary(
   user_email: string | null,
 ) {
   const client = await getGradioClient(user_email);
-  console.log('userData', userData);
-  const result = await client.predict('/get_summary', {
+  console.log("userData", userData);
+  const result = await client.predict("/get_summary", {
     commonDict: userData.commonDict,
     scoreDict: userData.scoreDict,
     score_total: userData.score_total,
@@ -109,7 +109,7 @@ export async function getPox(
   user_email: string | null,
 ) {
   const client = await getGradioClient(user_email);
-  const result = await client.predict('/get_pox', {
+  const result = await client.predict("/get_pox", {
     commonDict: userData.commonDict,
     scoreDict: userData.scoreDict,
     score_total: userData.score_total,
@@ -126,7 +126,7 @@ export async function getRefreshMoment(
   user_email: string | null,
 ) {
   const client = await getGradioClient(user_email);
-  const result = await client.predict('/reflesh_moments', {
+  const result = await client.predict("/reflesh_moments", {
     commonDict: userData.commonDict,
     scoreDict: userData.scoreDict,
     swot: userData.swot,
@@ -145,13 +145,13 @@ export async function getThemeByMoment(
   user_email: string | null,
 ) {
   const client = await getGradioClient(user_email);
-  const result = await client.predict('/get_theme_by_moment', {
+  const result = await client.predict("/get_theme_by_moment", {
     commonDict: userData.commonDict,
     scoreDict: userData.scoreDict,
     swot: userData.swot,
     strategies: userData.strategies,
     moments: userData.moments,
-    own_theme: 'Hello!!',
+    own_theme: "Hello!!",
   });
   return result.data;
 }
@@ -169,11 +169,11 @@ export async function getExcel(
 
   const dataToSend: Record<string, unknown> = {
     own_url: userData.ownUrl,
-    url_text: userData.urlText.join('\n'),
+    url_text: userData.urlText.join("\n"),
   };
   if (userData.excel_file) {
     dataToSend.excel_file = userData.excel_file;
   }
-  const result = await client.predict('/get_excel', dataToSend);
+  const result = await client.predict("/get_excel", dataToSend);
   return result.data;
 }

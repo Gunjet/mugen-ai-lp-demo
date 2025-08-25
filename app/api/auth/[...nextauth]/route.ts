@@ -1,5 +1,5 @@
-import NextAuth from 'next-auth';
-import Okta from 'next-auth/providers/okta';
+import NextAuth from "next-auth";
+import Okta from "next-auth/providers/okta";
 
 const authOptions = {
   providers: [

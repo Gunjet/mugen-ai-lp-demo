@@ -1,4 +1,4 @@
-'use client';
+"use client";
 // import PreAnalysisCheck from '@/components/pages/index/pre-analysis-check';
 // import PreAnalysisInput from '@/components/pages/index/pre-analysis-input';
 // import { LoadingPulse } from '@/components/parts/loading-pulse';
@@ -10,8 +10,8 @@
 // import { useStateStore } from '@/store/state';
 // import { useUserStore } from '@/store/user';
 // import Link from 'next/link';
-import { useEffect } from 'react';
-import ImprovementProposal from './improvement-result/page';
+import { useEffect } from "react";
+import ImprovementProposal from "./improvement-result/page";
 
 export default function Home() {
   // const { tempImagesLoading, getScoreLoading } = useStateStore();
@@ -23,8 +23,8 @@ export default function Home() {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
     };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
   return (
@@ -70,7 +70,7 @@ export default function Home() {
     //   <NoticeDialog />
     // </div>
     <div>
-      <ImprovementProposal/>
+      <ImprovementProposal />
     </div>
   );
 }

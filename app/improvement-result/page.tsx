@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-'use client';
+"use client";
 
-import AnalysisTable from '@/components/pages/improvement-result/analysis-table';
-import { LeftsideColumn } from '@/components/pages/improvement-result/hero-feature';
-import Item1Table from '@/components/pages/improvement-result/item1-table';
-import Item2Table from '@/components/pages/improvement-result/item2-table';
-import Item3Table from '@/components/pages/improvement-result/item3-table';
-import SummaryTable from '@/components/pages/improvement-result/summary-table';
-import { Bread } from '@/components/parts/bread';
-import { Button } from '@/components/ui/button';
-import { getExcel } from '@/services/gradio';
+import AnalysisTable from "@/components/pages/improvement-result/analysis-table";
+import { LeftsideColumn } from "@/components/pages/improvement-result/hero-feature";
+import Item1Table from "@/components/pages/improvement-result/item1-table";
+import Item2Table from "@/components/pages/improvement-result/item2-table";
+import Item3Table from "@/components/pages/improvement-result/item3-table";
+import SummaryTable from "@/components/pages/improvement-result/summary-table";
+import { Bread } from "@/components/parts/bread";
+import { Button } from "@/components/ui/button";
+import { getExcel } from "@/services/gradio";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,15 +19,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+} from "@/components/ui/dropdown-menu";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
-import { useResultStore } from '@/store/result';
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { useResultStore } from "@/store/result";
 import {
   ArrowDown,
   ArrowDownUp,
@@ -34,16 +35,16 @@ import {
   DownloadIcon,
   Eye,
   EyeOff,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { JSX, useEffect, useState } from 'react';
-import { HiQuestionMarkCircle } from 'react-icons/hi';
-import { useInputStore } from '@/store/input';
-import { useUserStore } from '@/store/user';
-import { useGlobalStore } from '@/store/global';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
-import { SummaryData } from '@/types/api';
+import { JSX, useEffect, useState } from "react";
+import { HiQuestionMarkCircle } from "react-icons/hi";
+import { useInputStore } from "@/store/input";
+import { useUserStore } from "@/store/user";
+import { useGlobalStore } from "@/store/global";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import { SummaryData } from "@/types/api";
 
 function handleDownloadDummyExcel() {
   const flatScore = flattenData(dummyScoreDict["dummy-url"]);
@@ -51,134 +52,159 @@ function handleDownloadDummyExcel() {
   const flatSummary = flattenData(dummySummaryData);
   const flatSwot = flattenData(dummySwotData75);
 
-  const data = [{
-    ...flatScore,
-    ...flatCommon,
-    ...flatSummary,
-    ...flatSwot,
-  }];
+  const data = [
+    {
+      ...flatScore,
+      ...flatCommon,
+      ...flatSummary,
+      ...flatSwot,
+    },
+  ];
 
   const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'LP改善案');
-  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  XLSX.utils.book_append_sheet(workbook, worksheet, "LP改善案");
+  const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
   const blob = new Blob([excelBuffer], {
-    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
-  saveAs(blob, 'ダミー改善案.xlsx');
+  saveAs(blob, "ダミー改善案.xlsx");
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function flattenData(data: { contents_ocr?: string; content_theme?: any; contents_theme2csv?: string; contents_top_theme?: string; fv_ocr?: string; fv_theme?: any; fv_theme2csv?: string; fv_top_theme?: string; image?: string; url?: string; ownUrl?: string; urlText?: string[]; competitor_urls?: string[]; own_url?: string; purpose?: string; urls_text?: string[]; total_analysis?: any; strengths?: any; weaknesses?: any; opportunities?: any; threats?: any; }) {
+function flattenData(data: {
+  contents_ocr?: string;
+  content_theme?: any;
+  contents_theme2csv?: string;
+  contents_top_theme?: string;
+  fv_ocr?: string;
+  fv_theme?: any;
+  fv_theme2csv?: string;
+  fv_top_theme?: string;
+  image?: string;
+  url?: string;
+  ownUrl?: string;
+  urlText?: string[];
+  competitor_urls?: string[];
+  own_url?: string;
+  purpose?: string;
+  urls_text?: string[];
+  total_analysis?: any;
+  strengths?: any;
+  weaknesses?: any;
+  opportunities?: any;
+  threats?: any;
+}) {
   return {
     ...data,
-    content_theme: (data.content_theme || []).join(','),
-    fv_theme: (data.fv_theme || []).join(','),
+    content_theme: (data.content_theme || []).join(","),
+    fv_theme: (data.fv_theme || []).join(","),
     strengths: data.strengths
       ? Object.entries(data.strengths)
           .map(([k, v]) => `${k}: ${v}`)
-          .join(', ')
-      : '',
+          .join(", ")
+      : "",
     weaknesses: data.weaknesses
       ? Object.entries(data.weaknesses)
           .map(([k, v]) => `${k}: ${v}`)
-          .join(', ')
-      : '',
+          .join(", ")
+      : "",
     opportunities: data.opportunities
       ? Object.entries(data.opportunities)
           .map(([k, v]) => `${k}: ${v}`)
-          .join(', ')
-      : '',
+          .join(", ")
+      : "",
     threats: data.threats
       ? Object.entries(data.threats)
           .map(([k, v]) => `${k}: ${v}`)
-          .join(', ')
-      : '',
+          .join(", ")
+      : "",
     total_analysis:
-      typeof data.total_analysis === 'object'
+      typeof data.total_analysis === "object"
         ? Object.entries(data.total_analysis)
             .map(([k, v]) => `${k}: ${v}`)
-            .join('\n')
-        : data.total_analysis || '',
+            .join("\n")
+        : data.total_analysis || "",
   };
 }
 
 const dummyScoreDict = {
   "dummy-url": {
-    contents_ocr: 'このコンテンツはAIによって抽出されました。',
-    content_theme: ['デザイン', '価格', 'ユーザビリティ'],
-    contents_theme2csv: 'デザイン,価格,ユーザビリティ',
-    contents_top_theme: 'ユーザビリティ',
-    fv_ocr: 'ファーストビューに強いキャッチコピーあり',
-    fv_theme: ['キャッチコピー', 'シンプルデザイン'],
-    fv_theme2csv: 'キャッチコピー,シンプルデザイン',
-    fv_top_theme: 'キャッチコピー',
-    image: 'https://via.placeholder.com/600x400.png?text=Dummy+LP+Image',
-    image_full: 'https://via.placeholder.com/600x400.png?text=Dummy+LP+Image+Full',
-    ocr: 'OCR文字列',
+    contents_ocr: "このコンテンツはAIによって抽出されました。",
+    content_theme: ["デザイン", "価格", "ユーザビリティ"],
+    contents_theme2csv: "デザイン,価格,ユーザビリティ",
+    contents_top_theme: "ユーザビリティ",
+    fv_ocr: "ファーストビューに強いキャッチコピーあり",
+    fv_theme: ["キャッチコピー", "シンプルデザイン"],
+    fv_theme2csv: "キャッチコピー,シンプルデザイン",
+    fv_top_theme: "キャッチコピー",
+    image: "https://via.placeholder.com/600x400.png?text=Dummy+LP+Image",
+    image_full:
+      "https://via.placeholder.com/600x400.png?text=Dummy+LP+Image+Full",
+    ocr: "OCR文字列",
     result: [
       {
-        advice: 'アドバイス1',
-        analysis: '分析1',
-        category: 'カテゴリー1',
-        question: '質問1',
+        advice: "アドバイス1",
+        analysis: "分析1",
+        category: "カテゴリー1",
+        question: "質問1",
         score: 80,
       },
     ],
-    title: 'ダミーLPタイトル',
-    url: 'https://www.dentsudigital.co.jp/',
-  }
+    title: "ダミーLPタイトル",
+    url: "https://www.dentsudigital.co.jp/",
+  },
 };
 
 const dummyCommonDict = {
-  ownUrl: 'https://www.dentsudigital.co.jp/',
+  ownUrl: "https://www.dentsudigital.co.jp/",
   urlText: [
-    'https://www.dentsu.co.jp/',
-    'https://dentsu-ho.com/',
-    'https://www.dentsusoken.com/',
+    "https://www.dentsu.co.jp/",
+    "https://dentsu-ho.com/",
+    "https://www.dentsusoken.com/",
   ],
   competitor_urls: [
-    'https://www.dentsu.co.jp/',
-    'https://dentsu-ho.com/',
-    'https://www.dentsusoken.com/',
+    "https://www.dentsu.co.jp/",
+    "https://dentsu-ho.com/",
+    "https://www.dentsusoken.com/",
   ],
-  own_url: 'https://www.dentsudigital.co.jp/',
-  purpose: '企業サイトの新規顧客獲得のため',
+  own_url: "https://www.dentsudigital.co.jp/",
+  purpose: "企業サイトの新規顧客獲得のため",
   urls_text: [
-    'https://www.dentsu.co.jp/',
-    'https://dentsu-ho.com/',
-    'https://www.dentsusoken.com/',
+    "https://www.dentsu.co.jp/",
+    "https://dentsu-ho.com/",
+    "https://www.dentsusoken.com/",
   ],
 };
 
 const dummySummaryData = {
   total_analysis: {
-    competitors_advantage: '競合サイトは最新情報の更新頻度が高いです。',
+    competitors_advantage: "競合サイトは最新情報の更新頻度が高いです。",
     own_company_advantage_and_advice:
-      '自社サイトは直感的なナビゲーションが強み。更なる強化のためFAQページの拡充を推奨します。',
-    自社改善点: 'CTAボタンの色彩を見直すとよりCV率向上が見込めます。',
-    自社相対位置: '業界では中堅レベルですが今後の成長余地あり。',
-    自社長所: '高いブランド認知度と安心感。',
+      "自社サイトは直感的なナビゲーションが強み。更なる強化のためFAQページの拡充を推奨します。",
+    自社改善点: "CTAボタンの色彩を見直すとよりCV率向上が見込めます。",
+    自社相対位置: "業界では中堅レベルですが今後の成長余地あり。",
+    自社長所: "高いブランド認知度と安心感。",
   },
 };
 
 const dummySwotData75 = {
   strengths: {
-    ブランド力: '業界大手の信頼感',
-    デザイン性: '洗練されたビジュアル',
+    ブランド力: "業界大手の信頼感",
+    デザイン性: "洗練されたビジュアル",
   },
   weaknesses: {
-    更新頻度: '情報更新がやや遅い',
-    レスポンシブ: 'モバイル対応が不十分',
+    更新頻度: "情報更新がやや遅い",
+    レスポンシブ: "モバイル対応が不十分",
   },
   opportunities: {
-    市場拡大: '新規ターゲット層への訴求',
-    SNS活用: 'Instagramでの拡散',
+    市場拡大: "新規ターゲット層への訴求",
+    SNS活用: "Instagramでの拡散",
   },
-  threats: { 競合増加: '同業他社の台頭', コスト: '広告費の高騰' },
+  threats: { 競合増加: "同業他社の台頭", コスト: "広告費の高騰" },
 };
 
-const tabs = ['A案', 'B案', 'C案', 'D案', 'E案', 'F案', 'G案', 'H案', 'I案'];
+const tabs = ["A案", "B案", "C案", "D案", "E案", "F案", "G案", "H案", "I案"];
 interface Items {
   title: string;
   key: string;
@@ -206,7 +232,7 @@ export default function ImprovementProposal() {
   const handleDownload = async () => {
     if (dummyMode) {
       if (!commonDict || !scoreDict || !summaryData || !swotData75) {
-        alert('分析が完了していません。');
+        alert("分析が完了していません。");
         return;
       }
       try {
@@ -219,76 +245,76 @@ export default function ImprovementProposal() {
             summary: summaryData,
             swot: swotData75,
           },
-          user?.user?.email || '',
+          user?.user?.email || ""
         );
 
         const data = (excelResult as { file: string }[])[0];
-        const base64 = data.file.split(',')[1];
+        const base64 = data.file.split(",")[1];
         const byteCharacters = atob(base64);
         const byteNumbers = Array.from(byteCharacters, (c) => c.charCodeAt(0));
         const byteArray = new Uint8Array(byteNumbers);
         const blob = new Blob([byteArray], {
-          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
 
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.setAttribute('download', '改善案.xlsx');
+        link.setAttribute("download", "改善案.xlsx");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       } catch (error) {
-        alert('ダウンロードに失敗しました');
+        alert("ダウンロードに失敗しました");
       }
       handleDownloadDummyExcel();
       return;
     }
   };
 
-  const [tab, setTab] = useState('A案');
+  const [tab, setTab] = useState("A案");
   const [displayItems, setDisplayItems] = useState<Items[]>([
     {
-      title: 'FVの改善案',
-      key: 'fv',
+      title: "FVの改善案",
+      key: "fv",
       index: 0,
       show: true,
       content: Item1Table(),
-      imgSrc: '/improvement-result/image1.png',
+      imgSrc: "/improvement-result/image1.png",
     },
     {
-      title: '商品/サービスの特徴',
-      key: 'characteristics',
+      title: "商品/サービスの特徴",
+      key: "characteristics",
       index: 1,
       show: true,
       content: Item2Table(),
-      imgSrc: '/improvement-result/image2.png',
+      imgSrc: "/improvement-result/image2.png",
     },
     {
-      title: '問題提起/共感',
-      key: 'issues',
+      title: "問題提起/共感",
+      key: "issues",
       index: 2,
       show: true,
       content: Item3Table(),
-      imgSrc: '/improvement-result/image3.png',
+      imgSrc: "/improvement-result/image3.png",
     },
   ]);
   const [heroImage, setHeroImage] = useState(
-    '/heroImage.svg?height=400&width=400',
+    "/heroImage.svg?height=400&width=400"
   );
   const handleDisplayItemsVisibility = (index: number) => {
     setDisplayItems((prevItems) =>
       prevItems.map((item) =>
-        item.index === index ? { ...item, show: !item.show } : item,
-      ),
+        item.index === index ? { ...item, show: !item.show } : item
+      )
     );
   };
 
   const handleDisplayItemsIndex = (
     index: number,
-    direction: 'asc' | 'desc',
+    direction: "asc" | "desc"
   ) => {
     setDisplayItems((prevItems) => {
-      const newIndex = direction === 'asc' ? index - 1 : index + 1;
+      const newIndex = direction === "asc" ? index - 1 : index + 1;
 
       if (newIndex >= 0 && newIndex < prevItems.length) {
         const items = [...prevItems];
@@ -322,8 +348,7 @@ export default function ImprovementProposal() {
           <div className="flex flex-col gap-2">
             <Button
               onClick={handleDownloadDummyExcel}
-              className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full bg-[#212121] pr-[5px] pl-[24px] text-[12px] font-semibold text-white shadow-none hover:bg-[#212121E5]"
-            >
+              className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full bg-[#212121] pr-[5px] pl-[24px] text-[12px] font-semibold text-white shadow-none hover:bg-[#212121E5]">
               改善案をダウンロード
               <DownloadIcon className="h-5 w-5" />
             </Button>
@@ -340,19 +365,17 @@ export default function ImprovementProposal() {
         <Tabs
           value={tab}
           onValueChange={setTab}
-          className="border-b px-12 pt-8"
-        >
+          className="border-b px-12 pt-8">
           <TabsList className="w-full justify-between p-0">
             {tabs.map((name) => (
               <TabsTrigger
                 key={name}
                 value={name}
                 className={cn(
-                  'rounded-none bg-none px-7 py-2 font-medium data-[state=active]:bg-none data-[state=active]:shadow-none',
+                  "rounded-none bg-none px-7 py-2 font-medium data-[state=active]:bg-none data-[state=active]:shadow-none",
                   tab === name &&
-                    'border-x-0 border-t-0 border-b-2 border-blue-400 text-black',
-                )}
-              >
+                    "border-x-0 border-t-0 border-b-2 border-blue-400 text-black"
+                )}>
                 {name}
               </TabsTrigger>
             ))}
@@ -367,30 +390,37 @@ export default function ImprovementProposal() {
         <div className="px-12">
           <SummaryTable />
         </div>
-        <div className="relative flex flex-col space-y-6 px-12 pb-8">
-          <div className="flex flex-row items-center justify-between">
-            <div className="flex flex-row items-center space-x-2">
-              <h2 className="text-xl font-bold">改善案（モックアップ）</h2>
+        <div className="relative flex flex-col px-12 pb-8">
+          <div className="flex flex-col">
+            <div className="flex items-center mb-4 mt-8">
+              <h2 className="text-primary-text text-xl font-bold">
+                改善案（モックアップ）
+              </h2>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="size-8">
-                    <HiQuestionMarkCircle fill="#777777" />
-                  </Button>
+                  <div className="bg-secondary-text mt-[2px] flex h-4 w-4 cursor-pointer items-center justify-center rounded-full text-xs text-white">
+                    ?
+                  </div>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent className="p-4 text-xs font-medium">
                   AIによる情報自動抽出処理の都合上、元の情報と異なる点が含まれる可能性があります。
                 </TooltipContent>
               </Tooltip>
             </div>
-            <div>
-              <Button variant="link">
-                <DownloadIcon stroke="#0186C9" />
-                画像をダウンロード
-              </Button>
-              <Button variant="link">
-                <DownloadIcon stroke="#0186C9" />
-                コードをダウンロード
-              </Button>
+            <div className="flex items-center">
+              <div>
+                <Button variant="link" className="cursor-pointer w-35">
+                  <DownloadIcon stroke="#0186C9" />
+                  画像をダウンロード
+                </Button>
+                <Button variant="link" className="cursor-pointer">
+                  <DownloadIcon stroke="#0186C9" />
+                  コードをダウンロード
+                </Button>
+              </div>
+              <h1 className="text-sm text-[#777777] font-medium ml-19">
+                ※競合分析の結果をもとに、自社の改善点と競合他社の強みを踏まえた改善案を生成しています
+              </h1>
             </div>
           </div>
 
@@ -427,12 +457,15 @@ export default function ImprovementProposal() {
                 <Button
                   className="fixed top-1/2 right-6 bg-[#056BE9] text-white hover:bg-[#0c58c1] hover:text-white"
                   variant="outline"
-                  size="icon"
-                >
+                  size="icon">
                   <ArrowDownUp />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="start">
+              <DropdownMenuContent
+                side="top"
+                sideOffset={8}
+                className="w-56"
+                align="end">
                 <DropdownMenuLabel>LPの構成</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
@@ -441,8 +474,7 @@ export default function ImprovementProposal() {
                       key={index}
                       onSelect={(e) => {
                         e.preventDefault();
-                      }}
-                    >
+                      }}>
                       <div className="flex w-full flex-row items-center justify-between">
                         <p className="text-sm">{item.title}</p>
                         <div className="flex flex-row space-x-1">
@@ -453,9 +485,8 @@ export default function ImprovementProposal() {
                             disabled={item.index === 0}
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleDisplayItemsIndex(item.index, 'asc');
-                            }}
-                          >
+                              handleDisplayItemsIndex(item.index, "asc");
+                            }}>
                             <ArrowUp />
                           </Button>
                           <Button
@@ -465,9 +496,8 @@ export default function ImprovementProposal() {
                             disabled={item.index === displayItems.length - 1}
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleDisplayItemsIndex(item.index, 'desc');
-                            }}
-                          >
+                              handleDisplayItemsIndex(item.index, "desc");
+                            }}>
                             <ArrowDown />
                           </Button>
                           <Button
@@ -477,8 +507,7 @@ export default function ImprovementProposal() {
                             onClick={(e) => {
                               e.stopPropagation();
                               handleDisplayItemsVisibility(item.index);
-                            }}
-                          >
+                            }}>
                             {item.show ? <Eye /> : <EyeOff />}
                           </Button>
                         </div>
@@ -497,7 +526,7 @@ export default function ImprovementProposal() {
                     <div key={index} className="transition-all duration-300">
                       {item.content}
                     </div>
-                  ),
+                  )
               )}
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface StoreState {
   urlMapping: any;
@@ -31,8 +31,12 @@ export const useStateStore = create<StoreState>((set) => ({
   urlMapping: [],
 
   setFormChanged: (changed: boolean) => set({ formChanged: changed }),
-  setTempImagesLoading: (loading: boolean) => set(() => ({ tempImagesLoading: loading })),
-  setGetScoreLoading: (loading: boolean) => set(() => ({ getScoreLoading: loading })),
-  setGetMomentLoading: (loading: boolean) => set(() => ({ getMomentLoading: loading })),
-  setSelectedChartDataset: (dataset) => set(() => ({ selectedChartDataset: dataset })),
+  setTempImagesLoading: (loading: boolean) =>
+    set(() => ({ tempImagesLoading: loading })),
+  setGetScoreLoading: (loading: boolean) =>
+    set(() => ({ getScoreLoading: loading })),
+  setGetMomentLoading: (loading: boolean) =>
+    set(() => ({ getMomentLoading: loading })),
+  setSelectedChartDataset: (dataset) =>
+    set(() => ({ selectedChartDataset: dataset })),
 }));

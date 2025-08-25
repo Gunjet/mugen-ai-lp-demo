@@ -1,33 +1,52 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Separator } from '@/components/ui/separator';
-import { useGlobalStore } from '@/store/global';
-import Image from 'next/image';
-import { useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import { useGlobalStore } from "@/store/global";
+import Image from "next/image";
+import { useEffect } from "react";
 
 const notices = [
   {
-    image: '/notice/1.png',
-    text: 'JS設定によってキャプチャが取得できないページ',
-    index: '①',
+    image: "/notice/1.png",
+    text: "JS設定によってキャプチャが取得できないページ",
+    index: "①",
   },
   {
-    image: '/notice/2.png',
-    text: 'FVにカルーセルや動画が表示されているページ',
-    index: '②',
+    image: "/notice/2.png",
+    text: "FVにカルーセルや動画が表示されているページ",
+    index: "②",
   },
   {
-    image: '/notice/3.png',
-    text: 'ページアクセスと同時にポップアップが表示されるページ',
-    index: '③',
+    image: "/notice/3.png",
+    text: "ページアクセスと同時にポップアップが表示されるページ",
+    index: "③",
   },
 ];
-const NoticeView: React.FC<{ image: string; text: string; index: string }> = ({ image, text, index }) => {
+const NoticeView: React.FC<{ image: string; text: string; index: string }> = ({
+  image,
+  text,
+  index,
+}) => {
   return (
     <div className="flex flex-col space-y-4">
-      <Image src={image} alt="" width={200} height={200} priority={true} loading="eager" className="h-[212px] w-[120px] self-center object-cover" />
+      <Image
+        src={image}
+        alt=""
+        width={200}
+        height={200}
+        priority={true}
+        loading="eager"
+        className="h-[212px] w-[120px] self-center object-cover"
+      />
       <div className="flex space-x-1">
         <div className="text-sm">{index}</div>
         <div className="text-sm font-medium">{text}</div>
@@ -46,7 +65,7 @@ export function NoticeDialog() {
 
   const handleDialog = (state: boolean) => {
     setNoticeDialog(state);
-    localStorage.setItem('terms', 'true');
+    localStorage.setItem("terms", "true");
   };
 
   return (
@@ -58,15 +77,23 @@ export function NoticeDialog() {
         }}
         onInteractOutside={(e) => {
           e.preventDefault();
-          const dialog = document.querySelector('[data-slot="dialog-content"]') as HTMLElement;
-          dialog.classList.remove('animate-shake');
+          const dialog = document.querySelector(
+            '[data-slot="dialog-content"]',
+          ) as HTMLElement;
+          dialog.classList.remove("animate-shake");
           void dialog.offsetWidth; // Trigger reflow to restart animation
-          dialog.classList.add('animate-shake');
+          dialog.classList.add("animate-shake");
         }}
       >
         <DialogHeader className="space-y-4">
           <DialogTitle className="flex items-center justify-center space-x-2 px-4 pt-6">
-            <Image src="/attention.svg" alt="attention" width={32} height={32} className="size-8 items-center" />
+            <Image
+              src="/attention.svg"
+              alt="attention"
+              width={32}
+              height={32}
+              className="size-8 items-center"
+            />
             <div className="text-center text-2xl">ご利用前の注意</div>
           </DialogTitle>
           <Separator />
@@ -76,7 +103,12 @@ export function NoticeDialog() {
           <div className="flex flex-col space-y-4 px-12">
             <div className="grid grid-cols-3 gap-8">
               {notices.map((notice, index) => (
-                <NoticeView key={index} image={notice.image} text={notice.text} index={notice.index} />
+                <NoticeView
+                  key={index}
+                  image={notice.image}
+                  text={notice.text}
+                  index={notice.index}
+                />
               ))}
             </div>
           </div>

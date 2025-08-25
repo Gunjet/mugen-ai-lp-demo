@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface StoreState {
   ownUrl: string;
@@ -14,14 +14,16 @@ interface StoreState {
 }
 
 export const useInputStore = create<StoreState>((set) => ({
-  ownUrl: '',
+  ownUrl: "",
   ownImage: null,
   ownImageBase64: null,
-  ownImageName: '',
+  ownImageName: "",
   competitionUrls: [],
   setOwnUrl: (url: string) => set(() => ({ ownUrl: url })),
   setOwnImage: (image: string | null) => set(() => ({ ownImage: image })),
-  setOwnImageBase64: (image: string | null) => set(() => ({ ownImageBase64: image })),
+  setOwnImageBase64: (image: string | null) =>
+    set(() => ({ ownImageBase64: image })),
   setOwnImageName: (name: string) => set(() => ({ ownImageName: name })),
-  setCompetitionUrls: (urls: string[]) => set(() => ({ competitionUrls: urls })),
+  setCompetitionUrls: (urls: string[]) =>
+    set(() => ({ competitionUrls: urls })),
 }));

@@ -4,8 +4,8 @@ export function parseToJSON(xmlString: string) {
 
   if (attributes) {
     attributes.forEach((attr) => {
-      const [key, value] = attr.split('=');
-      jsonObject[key] = value.replace(/'/g, '');
+      const [key, value] = attr.split("=");
+      jsonObject[key] = value.replace(/'/g, "");
     });
   }
 

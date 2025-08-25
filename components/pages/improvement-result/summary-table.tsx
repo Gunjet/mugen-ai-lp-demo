@@ -1,9 +1,9 @@
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 
 export default function SummaryTable() {
   return (
     <Table className="w-full border-collapse border border-[#ccc] text-sm">
-      <TableBody className="text-xs">
+      <TableBody className="text-[13px]">
         <TableRow>
           <TableCell className="w-48 border border-[#e4e7ec] p-3 align-middle font-medium">
             戦略
@@ -55,7 +55,7 @@ export default function SummaryTable() {
             <p>構成意図</p>
           </TableCell>
           <TableCell className="border border-[#e4e7ec] p-3 align-middle">
-            <ol className='list-disc px-4'>
+            <ol className="list-disc px-4">
               <li>
                 まず、メインコピーでは「デジタル戦略を模索する企業に、統合ソリューションを提供します。」とし、企業が直面するデジタル化の課題に対する解決策を提示することで、ターゲットの関心を引きつける狙いがある。 
               </li>

@@ -1,5 +1,8 @@
-import { useGlobalStore } from '@/store/global';
-import { getRefreshMoment as getRefreshMomentReal, getThemeByMoment as getThemeByMomentReal } from './gradio';
+import { useGlobalStore } from "@/store/global";
+import {
+  getRefreshMoment as getRefreshMomentReal,
+  getThemeByMoment as getThemeByMomentReal,
+} from "./gradio";
 
 export async function getRefreshMoment(
   userData: {
@@ -13,19 +16,19 @@ export async function getRefreshMoment(
 
   if (dummyMode) {
     try {
-      const res = await fetch('/dummy/get_refresh_moment.json');
+      const res = await fetch("/dummy/get_refresh_moment.json");
       if (!res.ok) {
         return {
-          status: 'error',
-          message: 'Dummy response could not be loaded.',
+          status: "error",
+          message: "Dummy response could not be loaded.",
         };
       }
       const data = await res.json();
       return data;
     } catch {
       return {
-        status: 'error',
-        message: 'Dummy fetch failed.',
+        status: "error",
+        message: "Dummy fetch failed.",
       };
     }
   }
@@ -47,19 +50,19 @@ export async function getThemeByMoment(
 
   if (dummyMode) {
     try {
-      const res = await fetch('/dummy/get_theme_by_moment.json');
+      const res = await fetch("/dummy/get_theme_by_moment.json");
       if (!res.ok) {
         return {
-          status: 'error',
-          message: 'Dummy response could not be loaded.',
+          status: "error",
+          message: "Dummy response could not be loaded.",
         };
       }
       const data = await res.json();
       return data;
     } catch {
       return {
-        status: 'error',
-        message: 'Dummy fetch failed.',
+        status: "error",
+        message: "Dummy fetch failed.",
       };
     }
   }

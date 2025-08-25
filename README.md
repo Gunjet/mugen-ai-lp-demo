@@ -8,8 +8,13 @@ pinned: false
 ---
 
 Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+
 # mugen_ai_lp_mock
+
 # mugen_ai_lp_mock
+
 # mugen_ai_lp_mock
+
 # mugen_ai_lp_mock
+
 # mugen_ai_lp_mock

@@ -1,9 +1,13 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { ChevronRight } from "lucide-react"; 
+import { ChevronRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-export function Breadcrumb({ children, className, ...props }: React.ComponentProps<"nav">) {
+export function Breadcrumb({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<"nav">) {
   return (
     <nav aria-label="breadcrumb" className={cn("mb-8", className)} {...props}>
       {children}
@@ -11,7 +15,10 @@ export function Breadcrumb({ children, className, ...props }: React.ComponentPro
   );
 }
 
-export function BreadcrumbList({ children, ...props }: React.ComponentProps<"ol">) {
+export function BreadcrumbList({
+  children,
+  ...props
+}: React.ComponentProps<"ol">) {
   return (
     <ol
       className="flex flex-wrap text-muted-foreground items-center space-x-2"
@@ -22,7 +29,10 @@ export function BreadcrumbList({ children, ...props }: React.ComponentProps<"ol"
   );
 }
 
-export function BreadcrumbItem({ children, ...props }: React.ComponentProps<"li">) {
+export function BreadcrumbItem({
+  children,
+  ...props
+}: React.ComponentProps<"li">) {
   return (
     <li className="inline-flex items-center gap-1.5" {...props}>
       {children}
@@ -64,12 +74,12 @@ export function BreadcrumbSeparator({
 export function Bread() {
   const pathname = usePathname();
   const links = [
-    { href: '/', label: 'TOP' },
-    { href: '/', label: '∞AI LP' },
-    { href: '/', label: '競合分析' },
-    { href: '/', label: '競合分析結果' },
-    { href: '/', label: '改善案生成' },
-    { href: '/improvement-result', label: '改善案生成結果' },
+    { href: "/", label: "TOP" },
+    { href: "/", label: "∞AI LP" },
+    { href: "/", label: "競合分析" },
+    { href: "/", label: "競合分析結果" },
+    { href: "/", label: "改善案生成" },
+    { href: "/improvement-result", label: "改善案生成結果" },
   ];
 
   return (
@@ -80,10 +90,10 @@ export function Bread() {
 
           return (
             <BreadcrumbItem key={index}>
-             <BreadcrumbLink
+              <BreadcrumbLink
                 className={cn(
-                  "text-[12px]", 
-                  isActive ? "text-[#777777]" : "text-[#212121]"
+                  "text-[12px]",
+                  isActive ? "text-[#777777]" : "text-[#212121]",
                 )}
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}

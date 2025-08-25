@@ -11,8 +11,8 @@ import {
   SwotTable,
   UrlCategoryScores,
   UrlMapping,
-} from '@/types/api';
-import { create } from 'zustand';
+} from "@/types/api";
+import { create } from "zustand";
 
 interface StoreState {
   tempImages: string[];

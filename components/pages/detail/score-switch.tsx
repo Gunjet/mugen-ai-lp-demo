@@ -1,6 +1,11 @@
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useResultStore } from '@/store/result';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useResultStore } from "@/store/result";
 
 export default function ScoreSwitch() {
   const { showPercentage, setShowPercentage } = useResultStore();
@@ -19,7 +24,9 @@ export default function ScoreSwitch() {
               <p>◎ (スコア 76-100)：評価観点を網羅できている</p>
               <p>○ (スコア 51-75)：一部改善点あり</p>
               <p>△ (スコア 26-50)：改善点あり</p>
-              <p className="text-[#DA2A2A]">× (スコア 0-25)：機会損失の可能性大</p>
+              <p className="text-[#DA2A2A]">
+                × (スコア 0-25)：機会損失の可能性大
+              </p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -27,11 +34,11 @@ export default function ScoreSwitch() {
       <ToggleGroup
         type="single"
         className="bg-white"
-        value={showPercentage ? 'star' : 'score'}
+        value={showPercentage ? "star" : "score"}
         onValueChange={(value) => {
-          if (value === 'score') {
+          if (value === "score") {
             setShowPercentage(false);
-          } else if (value === 'star') {
+          } else if (value === "star") {
             setShowPercentage(true);
           }
         }}

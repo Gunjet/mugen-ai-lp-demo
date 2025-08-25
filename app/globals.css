@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @plugin "tailwindcss-animate";
 
@@ -137,7 +137,7 @@
 }
 
 html {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 @theme {
@@ -280,7 +280,7 @@ html {
 /* overrides */
 div {
   font-size: 14px !important;
-  font-family: 'Noto Sans JP', sans-serif !important;
+  font-family: "Noto Sans JP", sans-serif !important;
 }
 .text-xs {
   font-size: 10px !important;

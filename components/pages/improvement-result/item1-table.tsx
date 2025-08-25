@@ -1,12 +1,12 @@
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { GlobeIcon, LightbulbIcon } from 'lucide-react';
+} from "@/components/ui/tooltip";
+import { GlobeIcon, LightbulbIcon } from "lucide-react";
 export default function Item1Table() {
   return (
     <div className="w-full rounded-xl bg-white">
@@ -15,7 +15,7 @@ export default function Item1Table() {
       </h2>
       <div className="overflow-x-auto px-8 py-6">
         <Table className="mb-6 w-full table-fixed border border-[#ccc] bg-white">
-          <TableBody className="text-xs">
+          <TableBody className="text-[13px]">
             <TableRow>
               <TableCell
                 className="border border-[#ccc] bg-[#fafafa] align-middle font-semibold"
@@ -96,7 +96,7 @@ export default function Item1Table() {
                 colSpan={3}
                 className="border border-[#ccc] bg-white p-2"
               >
-                <div className="flex flex-row items-center justify-between space-x-2 text-xs">
+                <div className="flex flex-row items-center justify-between space-x-2 text-[13px]]">
                   <p>
                     AI技術のテーマを反映した未来的な都市の写真に、デジタルデータやフローを上から重ねてください。
                   </p>
@@ -145,7 +145,7 @@ export default function Item1Table() {
                 colSpan={3}
                 className="border border-[#ccc] bg-white p-2"
               >
-                <div className="flex flex-row items-center justify-between space-x-2 text-xs">
+                <div className="flex flex-row items-center justify-between space-x-2 text-[13px]]">
                   <p>AI技術で次のステップを踏み出す</p>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -177,7 +177,7 @@ export default function Item1Table() {
                 colSpan={3}
                 className="border border-[#ccc] bg-white p-2"
               >
-                <div className="flex flex-row items-center space-x-2 text-xs">
+                <div className="flex flex-row items-center space-x-2 text-[13px]">
                   <p>
                     AI技術のテーマを反映した未来的な都市の写真に、デジタルデータやフローを上から重ねてください。
                   </p>

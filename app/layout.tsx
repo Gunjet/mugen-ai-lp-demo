@@ -1,25 +1,25 @@
-import { AppBar } from '@/components/parts/app-bar';
-import type { Metadata } from 'next';
-import { Noto_Sans_JP, Noto_Sans_Mono } from 'next/font/google';
-import './globals.css';
+import { AppBar } from "@/components/parts/app-bar";
+import type { Metadata } from "next";
+import { Noto_Sans_JP, Noto_Sans_Mono } from "next/font/google";
+import "./globals.css";
 
 const notoSans = Noto_Sans_JP({
-  variable: '--font-noto-sans',
-  subsets: ['latin'], 
-  weight: ['400', '700'], 
+  variable: "--font-noto-sans",
+  subsets: ["latin"],
+  weight: ["400", "700"],
   adjustFontFallback: false,
 });
 
 const notoMono = Noto_Sans_Mono({
-  variable: '--font-noto-mono',
-  subsets: ['latin'],
-  weight: ['400', '700'],
+  variable: "--font-noto-mono",
+  subsets: ["latin"],
+  weight: ["400", "700"],
   adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
-  title: '∞AI LP',
-  description: '∞AI LP',
+  title: "∞AI LP",
+  description: "∞AI LP",
 };
 
 export default function RootLayout({

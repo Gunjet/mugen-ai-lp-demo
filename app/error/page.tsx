@@ -1,10 +1,10 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { TriangleAlertIcon } from 'lucide-react';
+"use client";
+import { Button } from "@/components/ui/button";
+import { TriangleAlertIcon } from "lucide-react";
 
 export default function ErrorPage() {
   function goTop() {
-    window.location.href = '/';
+    window.location.href = "/";
   }
   return (
     <div className="flex grow flex-col items-center justify-center space-y-4">

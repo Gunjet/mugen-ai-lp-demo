@@ -1,8 +1,8 @@
-import { chartColors } from '@/static/chart-colors';
-import { useResultStore } from '@/store/result';
-import { useStateStore } from '@/store/state';
-import { Check } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { chartColors } from "@/static/chart-colors";
+import { useResultStore } from "@/store/result";
+import { useStateStore } from "@/store/state";
+import { Check } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function DetailLegends() {
   const { urlMapping, scoreTotal } = useResultStore();
@@ -12,9 +12,9 @@ export default function DetailLegends() {
   useEffect(() => {
     if (urlMapping && urlMapping.length > 0) {
       const selectedDataset = urlMapping.map((item, index) => ({
-        label: item.title ?? 'Unknown Title',
+        label: item.title ?? "Unknown Title",
         color: chartColors[index],
-        value: item.url ?? 'Unknown URL',
+        value: item.url ?? "Unknown URL",
       }));
       setSelectedChartDataset(selectedDataset);
     }
@@ -23,7 +23,12 @@ export default function DetailLegends() {
   const selectDeselectDatasets = (index: number) => {
     const newDataset = selectedChartDataset.map((item, idx) => ({
       ...item,
-      color: idx === index ? (item.color === 'transparent' ? chartColors[index] : 'transparent') : item.color,
+      color:
+        idx === index
+          ? item.color === "transparent"
+            ? chartColors[index]
+            : "transparent"
+          : item.color,
     }));
     setSelectedChartDataset(newDataset);
   };
@@ -39,32 +44,48 @@ export default function DetailLegends() {
                 className="size-[14px] cursor-pointer rounded-full p-[3px]"
                 style={{
                   background: selectedChartDataset[0]?.color,
-                  border: selectedChartDataset[0]?.color === 'transparent' ? `1px solid ${chartColors[0]}` : 'none',
-                  boxSizing: 'border-box',
+                  border:
+                    selectedChartDataset[0]?.color === "transparent"
+                      ? `1px solid ${chartColors[0]}`
+                      : "none",
+                  boxSizing: "border-box",
                 }}
                 onClick={() => selectDeselectDatasets(0)}
               >
-                {selectedChartDataset[0]?.color !== 'transparent' && <Check className="size-2 text-white" />}
+                {selectedChartDataset[0]?.color !== "transparent" && (
+                  <Check className="size-2 text-white" />
+                )}
               </div>
             </div>
             <div className="w-[12rem] text-sm font-medium">自社データ</div>
           </div>
-          <div className="mb-[2px] text-base font-medium">{urlMapping?.[0]?.url && scoreTotal ? scoreTotal[urlMapping[0].url] : 'N/A'}</div>
+          <div className="mb-[2px] text-base font-medium">
+            {urlMapping?.[0]?.url && scoreTotal
+              ? scoreTotal[urlMapping[0].url]
+              : "N/A"}
+          </div>
         </div>
         <div className="flex h-6 items-center space-x-2">
           <div>
             <div
               className="size-[14px] cursor-pointer rounded-full p-[3px]"
               style={{
-                background: selectAll ? 'transparent' : '#212121',
-                border: selectAll ? '1px solid #212121' : 'none',
-                boxSizing: 'border-box',
+                background: selectAll ? "transparent" : "#212121",
+                border: selectAll ? "1px solid #212121" : "none",
+                boxSizing: "border-box",
               }}
               onClick={() => {
-                const updatedDataset = selectedChartDataset.map((item, idx) => ({
-                  ...item,
-                  color: idx === 0 ? item.color : selectAll ? chartColors[idx] : 'transparent',
-                }));
+                const updatedDataset = selectedChartDataset.map(
+                  (item, idx) => ({
+                    ...item,
+                    color:
+                      idx === 0
+                        ? item.color
+                        : selectAll
+                          ? chartColors[idx]
+                          : "transparent",
+                  }),
+                );
                 setSelectAll(!selectAll);
                 setSelectedChartDataset(updatedDataset);
               }}
@@ -80,17 +101,26 @@ export default function DetailLegends() {
               <div
                 style={{
                   background: selectedChartDataset[index + 1]?.color,
-                  border: selectedChartDataset[index + 1]?.color === 'transparent' ? `1px solid ${chartColors[index + 1]}` : 'none',
-                  boxSizing: 'border-box',
+                  border:
+                    selectedChartDataset[index + 1]?.color === "transparent"
+                      ? `1px solid ${chartColors[index + 1]}`
+                      : "none",
+                  boxSizing: "border-box",
                 }}
                 className="size-[14px] cursor-pointer rounded-full p-[3px]"
                 onClick={() => selectDeselectDatasets(index + 1)}
               >
-                {selectedChartDataset[index + 1]?.color !== 'transparent' && <Check className="size-2 text-white" />}
+                {selectedChartDataset[index + 1]?.color !== "transparent" && (
+                  <Check className="size-2 text-white" />
+                )}
               </div>
-              <div className="w-[12rem] max-w-[12rem] overflow-hidden text-xs font-medium text-nowrap text-ellipsis">{item.title}</div>
+              <div className="w-[12rem] max-w-[12rem] overflow-hidden text-xs font-medium text-nowrap text-ellipsis">
+                {item.title}
+              </div>
             </div>
-            <div className="mb-[2px] text-base font-medium">{item.url && scoreTotal ? scoreTotal[item.url] : 'N/A'}</div>
+            <div className="mb-[2px] text-base font-medium">
+              {item.url && scoreTotal ? scoreTotal[item.url] : "N/A"}
+            </div>
           </div>
         ))}
       </div>

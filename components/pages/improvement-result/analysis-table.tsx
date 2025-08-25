@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -26,12 +25,14 @@ export default function AnalysisTable() {
             <TableHead
               className="w-[25%] text-foreground border-r border-b border-[#ccc] bg-[#D6EBF7] text-start text-lg font-semibold"
               rowSpan={2}
-              colSpan={3}>
+              colSpan={3}
+            >
               クロスSWOT分析
             </TableHead>
             <TableHead
               className="text-foreground border-b border-[#ccc] bg-[#CDE7F5] text-center text-[14px] font-bold"
-              colSpan={6}>
+              colSpan={6}
+            >
               内部要因
             </TableHead>
           </TableRow>
@@ -39,7 +40,8 @@ export default function AnalysisTable() {
             <TableHead
               colSpan={3}
               rowSpan={1}
-              className="text-foreground h-auto border-r border-b border-[#ccc] bg-[#E2F0F9] px-4! py-3! text-center font-bold">
+              className="text-foreground h-auto border-r border-b border-[#ccc] bg-[#E2F0F9] px-4! py-3! text-center font-bold"
+            >
               <h1 className="text-lg font-semibold">Strength 強み</h1>
               <p className="text-[11px] font-medium">
                 クリエイティビティとテクノロジーを統合できる点
@@ -47,7 +49,8 @@ export default function AnalysisTable() {
             </TableHead>
             <TableHead
               colSpan={3}
-              className="text-foreground h-auto border-r border-b border-[#ccc] bg-[#E2F0F9] px-4! py-3! text-center font-bold">
+              className="text-foreground h-auto border-r border-b border-[#ccc] bg-[#E2F0F9] px-4! py-3! text-center font-bold"
+            >
               <h1 className="text-lg font-semibold">Weakness 弱み</h1>
               <p className="text-[11px] font-medium">
                 競合に対してサステナビリティ対応が遅れている点
@@ -60,32 +63,35 @@ export default function AnalysisTable() {
             <TableCell
               className="text-foreground self-center text-center border-r border-[#ccc] bg-[#CDE7F5] align-middle text-[14px] font-bold py-[8px] px-[16px]"
               rowSpan={2}
-              colSpan={1}>
+              colSpan={1}
+            >
               外部要因
             </TableCell>
             <TableCell
               className="space-y-2 border-r border-b border-[#ccc] bg-[#E2F0F9] text-center align-middle font-bold px-[16px] py-[8px]"
-              colSpan={2}>
+              colSpan={2}
+            >
               <p className="text-lg font-semibold">Opportunity</p>
               <p className="text-lg font-semibold">機会</p>
               <div className="flex justify-center">
-              <ul className="flex flex-col items-center text-left space-y-1 text-[11px] font-medium max-w-[165.13px]">
-                <li className="mb-[2px] flex items-start text-[11px] font-medium">
-                  <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
-                  <span className="bg-[#212121]"></span>
-                  サステナビリティへの需要増加
-                </li>
-                <li className="mb-[2px] flex items-start text-[11px] font-medium">
-                  <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
-                  <span className="bg-[#212121]"></span>
-                  サステナビリティへの需要増加
-                </li>
-              </ul>
+                <ul className="flex flex-col items-center text-left space-y-1 text-[11px] font-medium max-w-[165.13px]">
+                  <li className="mb-[2px] flex items-start text-[11px] font-medium">
+                    <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
+                    <span className="bg-[#212121]"></span>
+                    サステナビリティへの需要増加
+                  </li>
+                  <li className="mb-[2px] flex items-start text-[11px] font-medium">
+                    <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
+                    <span className="bg-[#212121]"></span>
+                    サステナビリティへの需要増加
+                  </li>
+                </ul>
               </div>
             </TableCell>
             <TableCell
               className="space-y-2 border-r border-b border-[#ccc] px-[16px] py-[8px] text-center font-bold bg-[#F8FBFE]"
-              colSpan={3}>
+              colSpan={3}
+            >
               <p className="text-lg font-semibold text-[#0186C9]">積極化戦略</p>
               <p className="text-[13px] font-semibold">
                 スキル評価でキャリアを加速させる
@@ -107,7 +113,8 @@ export default function AnalysisTable() {
             </TableCell>
             <TableCell
               className="space-y-2 border-r border-b border-[#ccc] px-[16px] py-[8px] text-center font-bold bg-[#F8FBFE]"
-              colSpan={3}>
+              colSpan={3}
+            >
               <p className="text-lg font-semibold text-[#0186C9]">改善戦略</p>
               <p className="text-[13px] font-semibold">
                 シンプルな登録でスムーズな転職支援
@@ -131,27 +138,29 @@ export default function AnalysisTable() {
           <TableRow className="w-full">
             <TableCell
               className="space-y-2 border-r border-b border-[#ccc] bg-[#E2F0F9] text-center align-middle font-bold px-[16px] py-[8px]"
-              colSpan={2}>
+              colSpan={2}
+            >
               <p className="text-lg font-semibold">Threat</p>
               <p className="text-lg font-semibold">脅威</p>
               <div className="flex justify-center">
-              <ul className="flex flex-col items-center text-left space-y-1 text-[11px] font-medium max-w-[165.13px]">
-                <li className="mb-[2px] flex items-start text-[11px] font-medium">
-                  <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
-                  <span className="bg-[#212121]"></span>
-                  サステナビリティへの需要増加
-                </li>
-                <li className="mb-[2px] flex items-start text-[11px] font-medium">
-                  <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
-                  <span className="bg-[#212121]"></span>
-                  サステナビリティへの需要増加
-                </li>
-              </ul>
+                <ul className="flex flex-col items-center text-left space-y-1 text-[11px] font-medium max-w-[165.13px]">
+                  <li className="mb-[2px] flex items-start text-[11px] font-medium">
+                    <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
+                    <span className="bg-[#212121]"></span>
+                    サステナビリティへの需要増加
+                  </li>
+                  <li className="mb-[2px] flex items-start text-[11px] font-medium">
+                    <div className="w-1 h-1 min-w-1 min-h-1 mr-2 bg-black rounded-full mt-1.5"></div>
+                    <span className="bg-[#212121]"></span>
+                    サステナビリティへの需要増加
+                  </li>
+                </ul>
               </div>
             </TableCell>
             <TableCell
               className="space-y-2 border-r border-b border-[#ccc] text-center font-bold py-[8px] px-[16px] bg-[#F8FBFE]"
-              colSpan={3}>
+              colSpan={3}
+            >
               <p className="text-lg font-semibold text-[#0186C9]">防衛戦略</p>
               <p className="text-[13px] font-semibold">
                 技術を活かし転職潜在層を開拓
@@ -173,7 +182,8 @@ export default function AnalysisTable() {
             </TableCell>
             <TableCell
               className="space-y-2 border-r border-b border-[#ccc] bg-[#edf2f8] text-center align-middle font-bold py-[8px] px-[16px]"
-              colSpan={3}>
+              colSpan={3}
+            >
               防衛戦略
             </TableCell>
           </TableRow>

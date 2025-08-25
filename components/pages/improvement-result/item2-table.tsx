@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 export default function Item2Table() {
   return (
     <div className="w-full rounded-xl bg-white">

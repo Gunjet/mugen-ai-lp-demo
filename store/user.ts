@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface UserInfo {
   name: string;
@@ -17,10 +17,10 @@ interface StoreState {
 
 export const useUserStore = create<StoreState>((set) => ({
   user: {
-    expires: '',
+    expires: "",
     user: {
-      name: 'dummy-user',
-      email: 'dummy-user@example.com',
+      name: "dummy-user",
+      email: "dummy-user@example.com",
     },
   },
   setUser: (user) => set({ user }),

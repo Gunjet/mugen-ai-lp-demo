@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 
-import DetailAnalysis from '@/components/pages/detail/analysis';
-import DetailChart from '@/components/pages/detail/chart';
-import DetailLegends from '@/components/pages/detail/legends';
-import DetailSummary from '@/components/pages/detail/summary';
-import { Button } from '@/components/ui/button';
-import { useResultStore } from '@/store/result';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect } from 'react';
+import DetailAnalysis from "@/components/pages/detail/analysis";
+import DetailChart from "@/components/pages/detail/chart";
+import DetailLegends from "@/components/pages/detail/legends";
+import DetailSummary from "@/components/pages/detail/summary";
+import { Button } from "@/components/ui/button";
+import { useResultStore } from "@/store/result";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Detail() {
   const { downloadData } = useResultStore();
@@ -17,8 +17,8 @@ export default function Detail() {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
     };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
   // function downloadFile(downloadData?: { url?: string; orig_name?: string | null }) {
@@ -40,44 +40,50 @@ export default function Detail() {
   //     });
   // }
 
-  function downloadFile(downloadData?: { url?: string; orig_name?: string | null }) {
+  function downloadFile(downloadData?: {
+    url?: string;
+    orig_name?: string | null;
+  }) {
     if (!downloadData) return;
 
     if (downloadData.url) {
-        fetch(downloadData.url)
-          .then(res => {
-            if(!res.ok) throw new Error(`File not found: ${res.statusText}`);
-            return res.blob();
-          })
-          .then(blob => {
-              console.log("mime:", blob.type);
-              const blobUrl = window.URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = blobUrl;
-              a.download = downloadData.orig_name ?? 'download.xlsx';
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              window.URL.revokeObjectURL(blobUrl);
-          })
-          .catch(e => alert(e.message));
-    } 
-
-    else if (downloadData instanceof ArrayBuffer || downloadData instanceof Uint8Array) {
+      fetch(downloadData.url)
+        .then((res) => {
+          if (!res.ok) throw new Error(`File not found: ${res.statusText}`);
+          return res.blob();
+        })
+        .then((blob) => {
+          console.log("mime:", blob.type);
+          const blobUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = blobUrl;
+          a.download = downloadData.orig_name ?? "download.xlsx";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(blobUrl);
+        })
+        .catch((e) => alert(e.message));
+    } else if (
+      downloadData instanceof ArrayBuffer ||
+      downloadData instanceof Uint8Array
+    ) {
       const origName =
-        typeof (downloadData as any).orig_name === "string" && (downloadData as any).orig_name
+        typeof (downloadData as any).orig_name === "string" &&
+        (downloadData as any).orig_name
           ? (downloadData as any).orig_name
           : "output.xlsx";
-    
-      const blobSource = downloadData instanceof Uint8Array
-        ? new Uint8Array(Array.from(downloadData as Uint8Array))
-        : new Uint8Array(downloadData as ArrayBuffer);
-    
+
+      const blobSource =
+        downloadData instanceof Uint8Array
+          ? new Uint8Array(Array.from(downloadData as Uint8Array))
+          : new Uint8Array(downloadData as ArrayBuffer);
+
       const file = new Blob([blobSource], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-    
-      const a = document.createElement('a');
+
+      const a = document.createElement("a");
       const blobUrl = window.URL.createObjectURL(file);
       a.href = blobUrl;
       a.download = origName;
@@ -86,7 +92,7 @@ export default function Detail() {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(blobUrl);
     }
-}
+  }
 
   return (
     <div className="flex flex-col space-y-12">
@@ -115,7 +121,10 @@ export default function Detail() {
         </div>
       </div>
       <Link href="/refresh-moments" className="self-end">
-        <Button type="button" className="bg-main-button hover:bg-corporate/90 cursor-pointer rounded-full px-16 py-5 text-sm font-medium shadow-xl">
+        <Button
+          type="button"
+          className="bg-main-button hover:bg-corporate/90 cursor-pointer rounded-full px-16 py-5 text-sm font-medium shadow-xl"
+        >
           改善案を生成
         </Button>
       </Link>

@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import Image from "next/image";
+import React, { useRef, useState } from "react";
 
 export const LeftsideColumn: React.FC<{
   heroImage: string;
   onHeroImgChange: (file: File) => void;
 }> = ({ heroImage, onHeroImgChange }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const PLACEHOLDER = '/heroImage.svg';
-  const imgSrc = heroImage && heroImage !== '' ? heroImage : PLACEHOLDER;
+  const PLACEHOLDER = "/heroImage.svg";
+  const imgSrc = heroImage && heroImage !== "" ? heroImage : PLACEHOLDER;
   const [open, setOpen] = useState(false);
 
   return (
@@ -37,22 +37,22 @@ export const LeftsideColumn: React.FC<{
               <span
                 className={`absolute h-[2.5] w-6 bg-white transition-all duration-400 ${
                   open
-                    ? 'left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45'
-                    : 'left-1/2 -translate-x-1/2 rotate-0'
+                    ? "left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45"
+                    : "left-1/2 -translate-x-1/2 rotate-0"
                 }`}
               />
               <span
                 className={`absolute h-[2.5] w-6 bg-white transition-all duration-400 ${
                   open
-                    ? 'top-0.2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0'
-                    : 'top-0.5 left-1/2 -translate-x-1/2 opacity-100'
+                    ? "top-0.2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0"
+                    : "top-0.5 left-1/2 -translate-x-1/2 opacity-100"
                 }`}
               />
               <span
                 className={`absolute h-[2.5] w-6 bg-white transition-all duration-400 ${
                   open
-                    ? 'top-0.3 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-45'
-                    : 'top-3.5 left-1/2 -translate-x-1/2 rotate-0'
+                    ? "top-0.3 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-45"
+                    : "top-3.5 left-1/2 -translate-x-1/2 rotate-0"
                 }`}
               />
             </button>
@@ -194,10 +194,10 @@ export const LeftsideColumn: React.FC<{
               <div>
                 <div className="flex h-[200px] w-[250px] items-center justify-center rounded-lg">
                   <Image
-                    src={'/heroImage.svg'}
+                    src={"/heroImage.svg"}
                     width={200}
                     height={300}
-                    alt={'image'}
+                    alt={"image"}
                     className="h-full w-full rounded-lg object-cover"
                   />
                 </div>
@@ -227,10 +227,10 @@ export const LeftsideColumn: React.FC<{
             <div>
               <div className="mt-5 mb-7 flex h-[180px] w-[360px] items-center justify-center rounded-lg border">
                 <Image
-                  src={'/heroImage.svg'}
+                  src={"/heroImage.svg"}
                   width={200}
                   height={300}
-                  alt={'image'}
+                  alt={"image"}
                   className="h-full w-full rounded-lg object-cover"
                 />
               </div>
