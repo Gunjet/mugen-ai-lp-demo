@@ -45,6 +45,7 @@ import { useGlobalStore } from "@/store/global";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { SummaryData } from "@/types/api";
+import Image from "next/image";
 
 function handleDownloadDummyExcel() {
   const flatScore = flattenData(dummyScoreDict["dummy-url"]);
@@ -487,7 +488,11 @@ export default function ImprovementProposal() {
                               e.stopPropagation();
                               handleDisplayItemsIndex(item.index, "asc");
                             }}>
-                            <ArrowUp />
+                            <Image
+                              src="/arrowup.svg"
+                              width={8}
+                              height={8}
+                              alt={"ArrowUp"}></Image>
                           </Button>
                           <Button
                             size="icon"
@@ -498,7 +503,11 @@ export default function ImprovementProposal() {
                               e.stopPropagation();
                               handleDisplayItemsIndex(item.index, "desc");
                             }}>
-                            <ArrowDown />
+                            <Image
+                              src="/arrowdown.svg"
+                              width={8}
+                              height={8}
+                              alt={"ArrowDown"}></Image>
                           </Button>
                           <Button
                             size="icon"
@@ -508,7 +517,19 @@ export default function ImprovementProposal() {
                               e.stopPropagation();
                               handleDisplayItemsVisibility(item.index);
                             }}>
-                            {item.show ? <Eye /> : <EyeOff />}
+                            {item.show ? (
+                              <Image
+                                src="/eye.svg"
+                                width={12}
+                                height={12}
+                                alt={"Eye"}></Image>
+                            ) : (
+                              <Image
+                                src="/eyeoff.svg"
+                                width={12}
+                                height={12}
+                                alt={"EyeOff"}></Image>
+                            )}
                           </Button>
                         </div>
                       </div>
