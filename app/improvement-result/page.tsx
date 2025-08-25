@@ -7,6 +7,7 @@ import { LeftsideColumn } from "@/components/pages/improvement-result/hero-featu
 import Item1Table from "@/components/pages/improvement-result/item1-table";
 import Item2Table from "@/components/pages/improvement-result/item2-table";
 import Item3Table from "@/components/pages/improvement-result/item3-table";
+import { RegulationModal } from "@/components/pages/improvement-result/regulation-modal";
 import SummaryTable from "@/components/pages/improvement-result/summary-table";
 import { Bread } from "@/components/parts/bread";
 import { Button } from "@/components/ui/button";
@@ -28,17 +29,9 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { useResultStore } from "@/store/result";
-import {
-  ArrowDown,
-  ArrowDownUp,
-  ArrowUp,
-  DownloadIcon,
-  Eye,
-  EyeOff,
-} from "lucide-react";
+import { ArrowDownUp, DownloadIcon } from "lucide-react";
 
 import { JSX, useEffect, useState } from "react";
-import { HiQuestionMarkCircle } from "react-icons/hi";
 import { useInputStore } from "@/store/input";
 import { useUserStore } from "@/store/user";
 import { useGlobalStore } from "@/store/global";
@@ -216,6 +209,7 @@ interface Items {
 }
 
 export default function ImprovementProposal() {
+  const [regulationOpen, setRegulationOpen] = useState(false);
   const { setScoreDict, setCommonDict, setSummaryData, setSwotData75 } =
     useResultStore();
   useEffect(() => {
@@ -338,9 +332,15 @@ export default function ImprovementProposal() {
         <h2 className="text-2xl font-bold">改善案生成結果</h2>
         <div className="flex gap-3">
           <div className="flex flex-col gap-2">
-            <Button className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full border-[1px] border-[#CCCCCC] bg-white px-6 text-[12px] font-semibold text-[#212121] shadow-none hover:bg-[#EEEEEE] hover:text-[#212121]">
+            <Button
+              onClick={() => setRegulationOpen(true)}
+              className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full border-[1px] border-[#CCCCCC] bg-white px-6 text-[12px] font-semibold text-[#212121] shadow-none hover:bg-[#EEEEEE] hover:text-[#212121]">
               レギュレーションチェック
             </Button>
+            <RegulationModal
+              open={regulationOpen}
+              onClose={() => setRegulationOpen(false)}
+            />
             <Button className="flex h-10 min-w-[192px] cursor-pointer items-center justify-center gap-2 rounded-full border-[1px] border-[#CCCCCC] bg-[#CCCCCC] px-6 text-[12px] font-semibold shadow-none hover:border-[#CCCCCC] hover:bg-[#CCCCCC]">
               レギュレーションチェック
             </Button>
