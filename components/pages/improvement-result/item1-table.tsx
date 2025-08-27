@@ -84,8 +84,8 @@ export default function Item1Table() {
               <TableCell
                 colSpan={3}
                 className="border border-[#ccc] bg-white p-2">
-                <div className="flex flex-row items-center justify-between space-x-2 text-[13px]]">
-                  <p>
+                <div className="flex flex-row items-center justify-between space-x-2 text-[13px]">
+                  <p className="text-[13px]">
                     AI技術のテーマを反映した未来的な都市の写真に、デジタルデータやフローを上から重ねてください。
                   </p>
                   <Tooltip>
@@ -129,8 +129,8 @@ export default function Item1Table() {
               <TableCell
                 colSpan={3}
                 className="border border-[#ccc] bg-white p-2">
-                <div className="flex flex-row items-center justify-between space-x-2 text-[13px]]">
-                  <p>AI技術で次のステップを踏み出す</p>
+                <div className="flex flex-row items-center justify-between space-x-2">
+                  <p className="text-[13px]">AI技術で次のステップを踏み出す</p>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button variant="outline" size="icon" className="size-5">
@@ -159,7 +159,7 @@ export default function Item1Table() {
                 colSpan={3}
                 className="border border-[#ccc] bg-white p-2">
                 <div className="flex flex-row items-center space-x-2 text-[13px]">
-                  <p>
+                  <p className="text-[13px]">
                     AI技術のテーマを反映した未来的な都市の写真に、デジタルデータやフローを上から重ねてください。
                   </p>
                   <Tooltip>
