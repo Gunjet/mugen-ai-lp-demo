@@ -403,8 +403,8 @@ export default function ImprovementProposal() {
                     ?
                   </div>
                 </TooltipTrigger>
-                <TooltipContent className="p-4 text-xs font-medium">
-                  AIによる情報自動抽出処理の都合上、元の情報と異なる点が含まれる可能性があります。
+                <TooltipContent className="p-4 text-xs font-medium w-[248px] h-[64px] flex items-center justify-center">
+                  競合分析の結果をもとに、自社の改善点と競 <br></br>合他社の強みを踏まえた改善案を自動で設計 <br></br>しているため、自社LP情報と異なる場合があ <br></br>ります。
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -420,7 +420,11 @@ export default function ImprovementProposal() {
                 </Button>
               </div>
               <div className="flex items-center gap-2  ml-19">
-                <Image src="/action_error.png" alt={"ActionError"} width={24} height={24}></Image>
+                <Image
+                  src="/action_error.png"
+                  alt={"ActionError"}
+                  width={24}
+                  height={24}></Image>
                 <h1 className="text-sm text-black font-medium">
                   生成された画像の商用利用：FV画像はNG（gpt-image-1製）、コンテンツ画像はOK（Adobe
                   Firefly製）
