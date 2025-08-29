@@ -419,9 +419,13 @@ export default function ImprovementProposal() {
                   コードをダウンロード
                 </Button>
               </div>
-              <h1 className="text-sm text-[#777777] font-medium ml-19">
-                ※競合分析の結果をもとに、自社の改善点と競合他社の強みを踏まえた改善案を生成しています
-              </h1>
+              <div className="flex items-center gap-2  ml-19">
+                <Image src="/action_error.png" alt={"ActionError"} width={24} height={24}></Image>
+                <h1 className="text-sm text-black font-medium">
+                  生成された画像の商用利用：FV画像はNG（gpt-image-1製）、コンテンツ画像はOK（Adobe
+                  Firefly製）
+                </h1>
+              </div>
             </div>
           </div>
 
