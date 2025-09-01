@@ -94,7 +94,7 @@ export default function Item1Table() {
                         <GlobeIcon className="size-3" stroke="#777" />
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent className="max-w-[273px] h-[87px] text-sm flex justify-center items-center px-[16px] py-[8px]">
+                    <TooltipContent className="max-w-[273px] h-[87px] text-sm flex justify-center items-center px-16 py-[8px]">
                       情報ソース： https://wwwwwwwwwwwwwwwwww,
                       https://wwwwwwwwwwwwwwwwww, https://wwwwwwwwwwwwww...
                     </TooltipContent>
